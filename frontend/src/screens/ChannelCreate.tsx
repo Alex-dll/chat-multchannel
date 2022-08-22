@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useChannelContext } from "../hooks/useChannelContext";
 
 export const ChannelCreate = () => {
   const [channelName, setChannelName] = useState("");
 
-  const { createChannel } = useChannelContext();
+  const { createChannel, userName } = useChannelContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userName) {
+      navigate("/");
+      return;
+    }
+  }, []);
 
   return (
     <form
